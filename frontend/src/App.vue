@@ -1,3 +1,4 @@
+<!--suppress HtmlDeprecatedTag -->
 <template>
   <div class="container">
     <header class="row">
@@ -13,17 +14,20 @@
           <Login/>
       </div>
     </header>
+    <Content/>
   </div>
 </template>
 
 <script>
 import Login from "@/components/Login";
+import Content from "@/components/Content";
 
 
 export default {
   name: 'App',
   components: {
-    Login
+    Login,
+    Content
   },
 
 
@@ -39,6 +43,11 @@ body {
   padding: 0;
   font: 13px/18px Tahoma, sans-serif, Arial, Helvetica;
   background-color: #e7ebf0;
+}
+
+.row{
+  margin-right: 0 !important;
+  margin-left: 0 !important;
 }
 
 .header__menu span {
