@@ -1,13 +1,32 @@
 <template>
   <div class="login">
-    <span>Вход</span>
+    <span @click="showModalWindow">Вход</span>
+    <LoginModal v-if="showModal"/>
   </div>
 </template>
 
 <script>
+import LoginModal from "@/components/LoginModal";
+
 export default {
-  name: "Login"
+  name: "Login",
+  components: {
+    LoginModal
+  },
+
+  data() {
+    return {
+      showModal: false,
+    }
+  },
+  methods: {
+    showModalWindow() {
+      this.showModal = true
+      console.log(this.showModal)
+    }
+  },
 }
+
 </script>
 
 <style scoped>

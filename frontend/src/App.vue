@@ -34,6 +34,8 @@ export default {
 
 <style>
 body {
+  margin: 0;
+  padding: 0;
   font: 13px/18px Tahoma, sans-serif, Arial, Helvetica;
   background-color: #e7ebf0;
 }
