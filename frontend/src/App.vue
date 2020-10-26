@@ -10,19 +10,25 @@
         <span>Postgram</span>
       </div>
       <div class="header__auth-menu">
-        <a href="#">Вход</a>
-        <a href="#">Регистрация</a>
+          <Login/>
       </div>
     </header>
   </div>
 </template>
 
 <script>
+import Login from "@/components/Login";
+
 
 export default {
   name: 'App',
-  components: {}
+  components: {
+    Login
+  },
+
+  methods: {}
 }
+
 </script>
 
 
@@ -32,7 +38,7 @@ body {
   background-color: #e7ebf0;
 }
 
-span {
+.header__menu span {
   font-size: 21px;
   padding-left: 25%;
 }
@@ -48,23 +54,7 @@ span {
   align-items: center;
 }
 
-.header__auth-menu {
-  margin-top: 3px;
-  margin-right: 6px;
-}
-
-.header__auth-menu a{
-  color: white;
-  font-size: 17px;
-  text-decoration: none;
-
-}
-
-.header__auth-menu a:first-child{
-  margin-right: 13px;
-}
-
-.header__menu:hover {
+.header__menu:hover, .header__auth-menu:hover {
   background-color: #497799;
 }
 
