@@ -41,6 +41,7 @@ export default {
     ...mapMutations(['switchLoginModalStatus', 'login']),
     loginUser(user) {
       this.login(user)
+      this.switchLoginModalStatus()
     },
   }
 }
