@@ -9,7 +9,8 @@ export default new Vuex.Store({
         switchLoginModalStatus(state) {
             state.LoginModal = !state.LoginModal
         },
-        login(user) {
+        login(state, user) {
+            console.log(user)
             localStorage.setItem('user_id', user.id)
             localStorage.setItem('username', user.username)
             localStorage.setItem('first_name', user.first_name)
@@ -36,8 +37,9 @@ export default new Vuex.Store({
         getUserData() {
             let user = {}
             user.user_id = localStorage.getItem('user_id')
-            user.username = localStorage.removeItem('username')
-            user.first_name = localStorage.removeItem('first_name')
+            user.username = localStorage.getItem('username')
+            user.first_name = localStorage.getItem('first_name')
+            return user
         }
     },
 

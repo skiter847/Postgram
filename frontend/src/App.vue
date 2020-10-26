@@ -11,7 +11,8 @@
         <span>Postgram</span>
       </div>
       <div class="header__auth-menu">
-          <Login/>
+          <Login v-if="!userIsAuthenticated"/>
+          <UserInfo v-else/>
       </div>
     </header>
     <Content/>
@@ -21,17 +22,29 @@
 <script>
 import Login from "@/components/Login";
 import Content from "@/components/Content";
+import UserInfo from "@/components/UserInfo";
+import {mapGetters} from 'vuex';
 
 
 export default {
   name: 'App',
   components: {
+    UserInfo,
     Login,
     Content
   },
 
+  mounted() {
+    console.log(this.userIsAuthenticated)
+  },
 
-  methods: {}
+  computed: {
+    ...mapGetters(['userIsAuthenticated'])
+  },
+
+
+  methods: {
+  }
 }
 
 </script>
