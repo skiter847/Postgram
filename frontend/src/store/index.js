@@ -9,30 +9,35 @@ export default new Vuex.Store({
         switchLoginModalStatus(state) {
             state.LoginModal = !state.LoginModal
         },
-        login(state, user) {
+        login(user) {
             localStorage.setItem('user_id', user.id)
             localStorage.setItem('username', user.username)
             localStorage.setItem('first_name', user.first_name)
-            state.isAuthenticated = true
+            localStorage.setItem('isAuthenticated', true)
         },
 
-        logout(state) {
+        logout() {
             localStorage.removeItem('user_id')
             localStorage.removeItem('username')
             localStorage.removeItem('first_name')
-            state.isAuthenticated = false
+            localStorage.setItem('isAuthenticated', false)
         }
     },
     state: {
         LoginModal: false,
-        isAuthenticated: false,
     },
     getters: {
         getLoginModalStatus(state) {
             return state.LoginModal
         },
-        userIsAuthenticated(state) {
-            return state.isAuthenticated
+        userIsAuthenticated() {
+            return localStorage.getItem('isAuthenticated')
+        },
+        getUserData() {
+            let user = {}
+            user.user_id = localStorage.getItem('user_id')
+            user.username = localStorage.removeItem('username')
+            user.first_name = localStorage.removeItem('first_name')
         }
     },
 
