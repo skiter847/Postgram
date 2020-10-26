@@ -18,7 +18,8 @@
           <vue-telegram-login
               mode="callback"
               telegram-login="BotPostram_bot"
-              @callback="yourCallbackFunction"/>
+              @callback="saveUserData"
+          />
         </div>
       </div>
     </div>
@@ -38,12 +39,12 @@ export default {
 
   methods: {
     ...mapMutations(['switchLoginModalStatus']),
-    yourCallbackFunction(user) {
-      // gets user as an input
-      // id, first_name, last_name, username,
-      // photo_url, auth_date and hash
-      console.log(user)
-    }
+    saveUserData(user) {
+      localStorage.setItem('user_id', user.id)
+      localStorage.setItem('username', user.username)
+      localStorage.setItem('first_name', user.first_name)
+
+    },
   }
 }
 </script>
