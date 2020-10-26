@@ -2,7 +2,7 @@
   <div class="modal__wrapper">
     <div class="modal">
       <div class="modal__header">
-        <span>X</span>
+        <span @click="switchLoginModalStatus">X</span>
       </div>
       <div class="modal__title">
         <h2>Postgram</h2>
@@ -27,6 +27,7 @@
 
 <script>
 import {vueTelegramLogin} from 'vue-telegram-login'
+import {mapMutations} from 'vuex'
 
 export default {
   name: "LoginModal",
@@ -36,6 +37,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['switchLoginModalStatus']),
     yourCallbackFunction(user) {
       // gets user as an input
       // id, first_name, last_name, username,

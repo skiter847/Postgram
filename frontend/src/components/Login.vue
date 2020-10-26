@@ -1,12 +1,13 @@
 <template>
   <div class="login">
-    <span @click="showModalWindow">Вход</span>
-    <LoginModal v-if="showModal"/>
+    <span @click="switchLoginModalStatus">Вход</span>
+    <LoginModal v-if="getLoginModalStatus"/>
   </div>
 </template>
 
 <script>
 import LoginModal from "@/components/LoginModal";
+import {mapMutations, mapGetters} from 'vuex';
 
 export default {
   name: "Login",
@@ -14,16 +15,13 @@ export default {
     LoginModal
   },
 
-  data() {
-    return {
-      showModal: false,
-    }
+  computed: {
+    ...mapGetters(['getLoginModalStatus'])
   },
+
   methods: {
-    showModalWindow() {
-      this.showModal = true
-      console.log(this.showModal)
-    }
+    ...mapMutations(['switchLoginModalStatus']),
+
   },
 }
 
