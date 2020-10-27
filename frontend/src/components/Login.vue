@@ -32,6 +32,6 @@ export default {
   color: white;
   font-size: 20px;
   text-decoration: none;
-
+  cursor: pointer;
 }
 </style>
