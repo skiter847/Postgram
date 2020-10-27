@@ -36,8 +36,14 @@ export default {
 }
 
 span{
-  color: royalblue;
+  color: #5580a3;
   margin: 0 2px;
+  cursor: pointer;
+
+}
+
+span:hover{
+  color: royalblue;
 }
 
 .info__authorization{
