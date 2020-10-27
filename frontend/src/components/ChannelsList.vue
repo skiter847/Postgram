@@ -1,12 +1,28 @@
 <template>
   <div class="add-channel">
-    <span> + Добавить канал</span>
+    <span @click="switchAddChannelStatus"> + Добавить канал</span>
+    <addChannelModal v-if="getAddChannelModalStatus"/>
   </div>
 </template>
 
 <script>
+import addChannelModal from "@/components/addChannelModal";
+import {mapGetters, mapMutations} from 'vuex';
+
 export default {
-  name: "ChannelsList"
+  name: "ChannelsList",
+  components: {
+    addChannelModal
+  },
+
+  computed:{
+    ...mapGetters(['getAddChannelModalStatus'])
+  },
+
+  methods: {
+    ...mapMutations(['switchAddChannelStatus'])
+  },
+
 }
 </script>
 
@@ -28,7 +44,7 @@ export default {
   cursor: pointer;
 }
 
-.add-channel span:hover{
+.add-channel span:hover {
   background-color: #497799;
 }
 
