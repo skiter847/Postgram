@@ -1,6 +1,6 @@
 <template>
   <div class="add-channel">
-    <span>Добавить канал</span>
+    <span> + Добавить канал</span>
   </div>
 </template>
 
