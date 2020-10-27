@@ -6,6 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     actions: {},
     mutations: {
+        switchAddChannelStatus(state){
+          state.AddChannelModal = !state.AddChannelModal
+        },
         switchLoginModalStatus(state) {
             state.LoginModal = !state.LoginModal
         },
@@ -26,8 +29,12 @@ export default new Vuex.Store({
     },
     state: {
         LoginModal: false,
+        AddChannelModal: false,
     },
     getters: {
+        getAddChannelModalStatus(state){
+          return state.AddChannelModal
+        },
         getLoginModalStatus(state) {
             return state.LoginModal
         },
