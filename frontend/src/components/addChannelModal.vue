@@ -1,28 +1,60 @@
 <template>
   <div class="modal__wrapper">
-    <div class="modal">
+    <div class="modal" v-bind:style="{width : modalWidth, height : modalHeight}">
       <div class="modal__inner">
         <h3>Добавление канала</h3>
         <p>Добавьте бота <span>@BotPostram_bot</span> в список администраторов канала с правами на управление постами.
         </p>
-
         <div class="check_correct">
-          <p>Чтобы убедиться в том что вы сделали все правильно, введите название своего в поле.</p>
+          <p>Чтобы убедиться в том что вы сделали все правильно, введите ссылку на ваш канал в поле.</p>
           <div class="input__wrapper">
-            <input type="text" placeholder="@SomeChannel">
+            <input type="text" placeholder="https://t.me/SomeChannel" v-model="inputText">
           </div>
         </div>
         <div class="button__wrapper">
-          <button type="submit">Проверить</button>
+          <button @click="switchAddChannelStatus">назад</button>
+          <button type="submit" v-bind:class="{ disabled: getInputStatus }">Проверить</button>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+
+
 export default {
-  name: "AddChannelModal"
+  name: "AddChannelModal",
+  data() {
+    return {
+      inputText: "",
+      inputClear: true,
+      modalWidth: '500px',
+      modalHeight: '350px',
+    }
+  },
+
+  computed: {
+    getInputStatus() {
+      return this.inputClear
+    },
+  },
+
+  watch: {
+    inputText: function () {
+      if (this.inputText !== "") {
+        this.inputClear = false
+      } else {
+        this.inputClear = true
+      }
+    }
+  },
+
+  methods: {
+    ...mapMutations(['switchAddChannelStatus']),
+  },
 }
 </script>
 
@@ -53,6 +85,10 @@ span {
 .input__wrapper {
 }
 
+button:first-child {
+  margin-right: 15px;
+}
+
 button {
   text-transform: uppercase;
   padding: 10px;
@@ -64,8 +100,14 @@ button {
   font-size: 18px;
 }
 
+.disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
 input {
-  font-size: 16px;
+  font-size: 18px;
   width: 100%;
   outline: none;
   border: none;
@@ -87,14 +129,12 @@ input {
 }
 
 .modal {
+  display: flex;
   position: absolute;
   top: 50%;
   left: 50%;
-  display: block;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 500px;
-  height: 350px;
 }
 
 </style>
