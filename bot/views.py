@@ -2,7 +2,6 @@
 # https://api.telegram.org/bot<token>/setWebhook?url=<ngrok-url>/cbbf15d8-0421-4512-84d9-5e5d977e3aef/
 
 from django.http import HttpResponse
-from django.core.exceptions import PermissionDenied
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import telebot
@@ -13,6 +12,7 @@ tg_bot = telebot.TeleBot(settings.TOKEN_TELEGRAM_BOT)
 
 @csrf_exempt
 def update(request):
+    """ Сюда попадают все новые апдейты, после чего боту отдаеться этот апдейт в хендлеры """
     if request.META['CONTENT_TYPE'] == 'application/json':
 
         json_data = request.body.decode('utf-8')
@@ -22,7 +22,7 @@ def update(request):
         return HttpResponse("")
 
     else:
-        raise PermissionDenied
+        return HttpResponse("403")
 
 
 @tg_bot.message_handler(commands=['start'])
