@@ -54,6 +54,10 @@ export default {
 
   methods: {
     ...mapMutations(['switchAddChannelStatus']),
+
+    checkChannelExists(){
+      
+    },
   },
 }
 </script>
