@@ -108,6 +108,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 TOKEN_TELEGRAM_BOT = os.getenv('POSTGRAM_TOKEN_BOT')
 
+BOT_ID = 1326086399
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
