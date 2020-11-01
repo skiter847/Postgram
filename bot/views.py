@@ -6,37 +6,37 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import telebot
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+
 from . import util
 
 tg_bot = telebot.TeleBot(settings.TOKEN_TELEGRAM_BOT)
 
 
-@csrf_exempt
+@api_view(['POST'])
 def channel_exists(request):
     data = {
         'exists': False,
         'bot_has_perm': False,
         'message': None,
     }
-    if request.method == 'POST':
-        if request.POST.get('channel') and request.POST.get('channel').startswith('https://t.me/'):
-            # Формат текста 'https://t.me/breakingmash' сплитим по t.me/ и елемент с индексом 1 и будет название канала
-            channel_name = '@' + request.POST['channel'].split('t.me/')[1]
-            chat = util.check_exists(tg_bot, channel_name)
-            if chat and util.check_bot_permissions(tg_bot, chat.id):
-                data.update({'exists': True, 'bot_has_perm': True, 'message': 'OK'})
-                return JsonResponse(data, status=status.HTTP_200_OK, safe=False)
-            else:
-                data.update({'message': 'Чат не найден или у бота недостаточно прав'})
-                return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST,
-                                    json_dumps_params={'ensure_ascii': False})
+    if request.data.get('channel') and request.data.get('channel').startswith('https://t.me/'):
+        # Формат текста 'https://t.me/breakingmash' сплитим по t.me/ и елемент с индексом 1 и будет название канала
+        channel_name = '@' + request.data.get('channel').split('t.me/')[1]
+        chat = util.check_exists(tg_bot, channel_name)
+        if chat and util.check_bot_permissions(tg_bot, chat.id):
+            data.update({'exists': True, 'bot_has_perm': True, 'message': 'OK'})
+            return Response(data, status=status.HTTP_200_OK)
         else:
-
-            data.update({'message': 'Некорректные данные'})
-            return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST, json_dumps_params={'ensure_ascii': False})
+            data.update({'message': 'Чат не найден или у бота недостаточно прав'})
+            return Response(data, status=status.HTTP_400_BAD_REQUEST, )
     else:
-        data.update({'message': 'Неверный метод запроса'})
-        return JsonResponse(data, status=status.HTTP_403_FORBIDDEN, json_dumps_params={'ensure_ascii': False})
+
+        data.update({'message': 'Некорректные данные'})
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @csrf_exempt
