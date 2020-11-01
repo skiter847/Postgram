@@ -34,10 +34,6 @@ export default {
     Content
   },
 
-  mounted() {
-    console.log(this.userIsAuthenticated)
-  },
-
   computed: {
     ...mapGetters(['userIsAuthenticated'])
   },

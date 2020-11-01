@@ -13,7 +13,6 @@ export default new Vuex.Store({
             state.LoginModal = !state.LoginModal
         },
         login(state, user) {
-            console.log(user)
             localStorage.setItem('user_id', user.id)
             localStorage.setItem('username', user.username)
             localStorage.setItem('first_name', user.first_name)
