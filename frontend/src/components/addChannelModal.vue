@@ -7,13 +7,18 @@
         </p>
         <div class="check_correct">
           <p>Чтобы убедиться в том что вы сделали все правильно, введите ссылку на ваш канал в поле.</p>
-          <div class="input__wrapper">
-            <input type="text" placeholder="https://t.me/SomeChannel" v-model="inputText">
-          </div>
-        </div>
-        <div class="button__wrapper">
-          <button @click="switchAddChannelStatus">назад</button>
-          <button type="submit" v-bind:class="{ disabled: getInputStatus }">Проверить</button>
+            <div class="input__wrapper">
+              <input type="text" placeholder="https://t.me/SomeChannel" v-model="inputText">
+              <div v-if="errors" class="alert alert-danger" role="alert">
+                {{ errors }}
+              </div>
+            </div>
+            <div class="button__wrapper">
+              <button @click="switchAddChannelStatus">назад</button>
+              <button type="submit" @click="checkChannelExists" v-bind:class="{ disabled: getInputStatus }">
+                Добавить
+              </button>
+            </div>
         </div>
       </div>
     </div>
@@ -22,6 +27,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import {mapMutations} from 'vuex';
 
 
@@ -29,6 +35,7 @@ export default {
   name: "AddChannelModal",
   data() {
     return {
+      errors: "",
       inputText: "",
       inputClear: true,
       modalWidth: '500px',
@@ -55,8 +62,15 @@ export default {
   methods: {
     ...mapMutations(['switchAddChannelStatus']),
 
-    checkChannelExists(){
-      
+    checkChannelExists() {
+      axios.post('http://127.0.0.1:8443/cbbf15d8-0421-4512-84d9-5e5d977e3aef/channel/exists/', {
+        "channel": this.inputText,
+      }).then(response => {
+        console.log(response)
+      }).catch(error => {
+        this.modalHeight = '380px'
+        this.errors = error.response.data.message
+      });
     },
   },
 }
@@ -91,6 +105,10 @@ span {
 
 button:first-child {
   margin-right: 15px;
+}
+
+.alert-danger {
+  margin-top: 5px;
 }
 
 button {
