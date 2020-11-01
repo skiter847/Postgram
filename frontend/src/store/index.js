@@ -17,6 +17,7 @@ export default new Vuex.Store({
             localStorage.setItem('username', user.username)
             localStorage.setItem('first_name', user.first_name)
             localStorage.setItem('isAuthenticated', true)
+            location.reload()
         },
 
         logout() {
